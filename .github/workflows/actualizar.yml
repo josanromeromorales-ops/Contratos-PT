@@ -32,7 +32,10 @@ jobs:
         run: pip install openpyxl
 
       - name: Descargar datos de Hacienda y generar el Excel
+        # margen para que, si se agota el tiempo, los pasos siguientes guarden lo avanzado
+        timeout-minutes: 320
         env:
+          PYTHONUNBUFFERED: "1"
           HISTORICO: ${{ github.event.inputs.historico }}
         run: |
           if [ -n "$HISTORICO" ]; then
@@ -42,6 +45,7 @@ jobs:
           fi
 
       - name: Guardar los datos en el repositorio
+        if: always() && hashFiles('datos_contratos_pinto.json') != ''
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
@@ -50,10 +54,12 @@ jobs:
             echo "Sin cambios en los datos."
           else
             git commit -m "Actualización de contratos $(date -u +%Y-%m-%d)"
+            git pull --rebase origin main
             git push
           fi
 
       - name: Publicar el Excel (siempre en el mismo enlace)
+        if: always() && hashFiles('contratos_pinto.xlsx') != ''
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -63,6 +69,7 @@ jobs:
           gh release upload datos contratos_pinto.xlsx --clobber
 
       - name: Guardar el Excel también como resultado de la ejecución
+        if: always() && hashFiles('contratos_pinto.xlsx') != ''
         uses: actions/upload-artifact@v4
         with:
           name: contratos_pinto

@@ -230,6 +230,18 @@ def lee_entrada(entry, origen):
     }
 
 
+def candidata(entry):
+    """Filtro previo barato: ¿algún nombre o identificador del órgano puede ser de Pinto?"""
+    lcp = entry.find(P("ContractFolderStatus", "LocatedContractingParty"))
+    if lcp is None:
+        return False
+    if IDS_ORGANOS:
+        return any((x.text or "").strip() in IDS_ORGANOS
+                   for x in lcp.iter() if x.tag.endswith("}ID"))
+    return any(re.search(FILTRO_NOMBRE, normaliza(x.text or ""))
+               for x in lcp.iter() if x.tag.endswith("}Name"))
+
+
 def es_de_pinto(reg):
     nombres = [reg["Órgano de contratación"]] + reg["Jerarquía del órgano"].split(" > ")
     if normaliza(reg["Órgano de contratación"]) in EXCLUIR_NOMBRES:
@@ -306,9 +318,11 @@ def procesa_atom(fobj, origen, almacen):
             if upd and (mas_antigua is None or upd < mas_antigua):
                 mas_antigua = upd
             mas_reciente = max(mas_reciente, upd)
-            reg = lee_entrada(el, origen)
-            if reg and es_de_pinto(reg):
-                almacen.guarda_registro(reg)
+            # comprobación rápida del órgano antes de leer la entrada completa
+            if candidata(el):
+                reg = lee_entrada(el, origen)
+                if reg and es_de_pinto(reg):
+                    almacen.guarda_registro(reg)
             el.clear()
         elif tag == "deleted-entry":
             almacen.marca_borrado(el.get("ref", ""), el.get("when", ""))
@@ -323,7 +337,7 @@ def procesa_zip(ruta, origen, almacen):
             if nombre.lower().endswith(".atom"):
                 with zf.open(nombre) as f:
                     total += procesa_atom(f, origen, almacen)[2]
-    print(f"   {ruta.name}: {total} entradas leídas")
+    print(f"   {ruta.name}: {total} entradas leídas · expedientes de Pinto acumulados: {len(almacen.registros)}", flush=True)
 
 
 # ---------------------------------------------------------------------------
@@ -366,23 +380,36 @@ def carga_historico(desde_anio, fuentes, almacen):
         for anio in range(desde_anio, hoy.year):
             periodos.append([str(anio)] + [f"{anio}{m:02d}" for m in range(1, 13)])
         periodos += [[f"{hoy.year}{m:02d}"] for m in range(1, hoy.month)]
+        ctl = almacen.control.setdefault(clave, {})
+        hechos = set(ctl.get("periodos_cargados", []))
         for opciones in periodos:
             # primero el ZIP anual; si no existe, los mensuales de ese año
             candidatos = opciones[:1]
             for p in candidatos:
+                if p in hechos:
+                    print(f"   {p}: ya cargado en una ejecución anterior", flush=True)
+                    continue
                 destino = CARPETA_DESCARGAS / f"{clave}_{p}.zip"
                 if not destino.exists():
-                    print(f"   descargando {p}...")
+                    print(f"   descargando {p}...", flush=True)
+                    t0 = time.time()
                     if descarga(f["zip"].format(p=p), destino) is None:
                         if len(opciones) > 1 and p == opciones[0]:
                             candidatos.extend(opciones[1:])
                         else:
-                            print(f"   (no publicado: {p})")
+                            print(f"   (no publicado: {p})", flush=True)
                         continue
+                    print(f"   {p}: {destino.stat().st_size / 1e6:.0f} MB en {time.time() - t0:.0f} s", flush=True)
                 procesa_zip(destino, f["etiqueta"], almacen)
                 if BORRAR_DESCARGAS:
                     destino.unlink(missing_ok=True)
-        almacen.control.setdefault(clave, {})["historico_desde"] = desde_anio
+                # se guarda el avance tras cada periodo: si la ejecución se corta,
+                # la siguiente continúa donde se quedó
+                hechos.add(p)
+                ctl["periodos_cargados"] = sorted(hechos)
+                almacen.guarda()
+        if ctl.get("historico_desde") is None or desde_anio < ctl["historico_desde"]:
+            ctl["historico_desde"] = desde_anio
 
 
 def carga_zips_locales(ruta, fuentes, almacen):
