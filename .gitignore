@@ -1,0 +1,6 @@
+descargas/
+*.part
+*.tmp
+contratos_pinto*.xlsx
+registro_actualizaciones.txt
+__pycache__/
