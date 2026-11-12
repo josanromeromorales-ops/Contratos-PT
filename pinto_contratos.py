@@ -80,7 +80,9 @@ FICHERO_DATOS = CARPETA / "datos_contratos_pinto.json"
 EXCEL_POR_DEFECTO = CARPETA / "contratos_pinto.xlsx"
 MAX_PAGINAS_FEED = 400          # tope de seguridad al seguir los enlaces "next"
 MARGEN_DIAS = 3                 # se relee un pequeño solape para no perder nada
-BORRAR_DESCARGAS = False        # True: borra cada ZIP tras leerlo (ahorra disco, p. ej. en GitHub)
+DIAS_PRIMERA_VEZ = 3            # primera actualización sin datos previos: días hacia atrás
+MAX_MINUTOS_FEED = 60           # tope de tiempo leyendo el feed de cada fuente
+BORRAR_DESCARGAS = False       # True: borra cada ZIP tras leerlo (ahorra disco, p. ej. en GitHub)
 
 # ---------------------------------------------------------------------------
 # Tablas de códigos CODICE
@@ -379,7 +381,9 @@ def carga_historico(desde_anio, fuentes, almacen):
         periodos = []
         for anio in range(desde_anio, hoy.year):
             periodos.append([str(anio)] + [f"{anio}{m:02d}" for m in range(1, 13)])
-        periodos += [[f"{hoy.year}{m:02d}"] for m in range(1, hoy.month)]
+        # meses del año en curso, incluido el actual (Hacienda lo publica hasta el día anterior)
+        periodos += [[f"{hoy.year}{m:02d}"] for m in range(1, hoy.month + 1)]
+        mes_actual = f"{hoy.year}{hoy.month:02d}"
         ctl = almacen.control.setdefault(clave, {})
         hechos = set(ctl.get("periodos_cargados", []))
         for opciones in periodos:
@@ -405,7 +409,8 @@ def carga_historico(desde_anio, fuentes, almacen):
                     destino.unlink(missing_ok=True)
                 # se guarda el avance tras cada periodo: si la ejecución se corta,
                 # la siguiente continúa donde se quedó
-                hechos.add(p)
+                if p != mes_actual:   # el mes en curso aún está incompleto
+                    hechos.add(p)
                 ctl["periodos_cargados"] = sorted(hechos)
                 almacen.guarda()
         if ctl.get("historico_desde") is None or desde_anio < ctl["historico_desde"]:
@@ -431,20 +436,30 @@ def actualiza_feed(fuentes, almacen, desde=None):
         elif ctl.get("ultima_entrada"):
             limite = (dt.date.fromisoformat(ctl["ultima_entrada"][:10]) - dt.timedelta(days=MARGEN_DIAS)).isoformat()
         else:
-            limite = (dt.date.today() - dt.timedelta(days=30)).isoformat()
-        print(f"\n== Actualización de {clave} (hasta {limite}) ==")
+            # sin datos previos: solo los últimos días (lo anterior llega con --historico)
+            limite = (dt.date.today() - dt.timedelta(days=DIAS_PRIMERA_VEZ)).isoformat()
+        print(f"\n== Actualización de {clave} (hasta {limite}) ==", flush=True)
         url, paginas, mas_reciente = f["feed"], 0, ctl.get("ultima_entrada", "")
+        t0, completo = time.time(), False
         while url and paginas < MAX_PAGINAS_FEED:
+            if time.time() - t0 > MAX_MINUTOS_FEED * 60:
+                print(f"   se alcanzó el tope de {MAX_MINUTOS_FEED} min; se guarda lo leído", flush=True)
+                break
             datos = descarga(url)
             if datos is None:
                 break
             paginas += 1
             url, mas_antigua, n, reciente = procesa_atom(io.BytesIO(datos), f["etiqueta"], almacen)
             mas_reciente = max(mas_reciente, reciente)
-            if not n or (mas_antigua and mas_antigua[:10] < limite):
+            print(f"   página {paginas}: hasta {(mas_antigua or '')[:10]} · "
+                  f"expedientes de Pinto acumulados: {len(almacen.registros)}", flush=True)
+            if not n or not url or (mas_antigua and mas_antigua[:10] < limite):
+                completo = True
                 break
-        print(f"   {paginas} páginas leídas")
-        ctl["ultima_entrada"] = mas_reciente
+        print(f"   {paginas} páginas leídas en {time.time() - t0:.0f} s", flush=True)
+        # solo se avanza la marca si se llegó hasta el límite; si no, la próxima vez se relee
+        if completo or not ctl.get("ultima_entrada"):
+            ctl["ultima_entrada"] = mas_reciente
         ctl["ultima_actualizacion"] = dt.datetime.now().isoformat(timespec="seconds")
 
 
