@@ -461,17 +461,54 @@ def descarga(url, destino=None, intentos=3):
     raise RuntimeError(f"No se pudo descargar {url}: {err}")
 
 
-def carga_historico(desde_anio, fuentes, almacen):
+def lista_periodos(desde_anio):
+    """[[año, mes1..mes12], ...] para años cerrados y [[mes]] para el año en curso."""
+    hoy = dt.date.today()
+    periodos = [[str(a)] + [f"{a}{m:02d}" for m in range(1, 13)] for a in range(desde_anio, hoy.year)]
+    # meses del año en curso, incluido el actual (Hacienda lo publica hasta el día anterior)
+    periodos += [[f"{hoy.year}{m:02d}"] for m in range(1, hoy.month + 1)]
+    return periodos
+
+
+def plan_paralelo(desde_anio, fuentes, almacen):
+    """Tareas pendientes para cargar en paralelo (una por fuente y año/mes)."""
+    tareas = []
+    for clave in fuentes:
+        hechos = set(almacen.control.get(clave, {}).get("periodos_cargados", []))
+        for opciones in lista_periodos(desde_anio):
+            p = opciones[0]
+            # un año cuenta como hecho si se cargó entero o mes a mes
+            if p in hechos or (len(opciones) > 1 and set(opciones[1:]) <= hechos):
+                continue
+            tareas.append({"fuente": clave, "periodo": p})
+    return tareas
+
+
+def fusiona(carpeta, almacen):
+    """Une los resultados parciales (JSON) de las tareas en paralelo."""
+    for ruta in sorted(Path(carpeta).rglob("*.json")):
+        d = json.loads(ruta.read_text(encoding="utf-8"))
+        for reg in d.get("registros", {}).values():
+            almacen.guarda_registro(reg)
+            if reg.get("Borrado en Plataforma"):
+                almacen.registros[reg["id"]]["Borrado en Plataforma"] = reg["Borrado en Plataforma"]
+        for clave, ctl in d.get("control", {}).items():
+            mio = almacen.control.setdefault(clave, {})
+            mio["periodos_cargados"] = sorted(set(mio.get("periodos_cargados", [])) | set(ctl.get("periodos_cargados", [])))
+            if ctl.get("historico_desde") and (not mio.get("historico_desde") or ctl["historico_desde"] < mio["historico_desde"]):
+                mio["historico_desde"] = ctl["historico_desde"]
+        print(f"   {ruta.name}: {len(d.get('registros', {}))} expedientes", flush=True)
+
+
+def carga_historico(desde_anio, fuentes, almacen, solo=None):
     hoy = dt.date.today()
     CARPETA_DESCARGAS.mkdir(exist_ok=True)
     for clave in fuentes:
         f = FUENTES[clave]
         print(f"\n== Histórico de {clave} desde {desde_anio} ==")
-        periodos = []
-        for anio in range(desde_anio, hoy.year):
-            periodos.append([str(anio)] + [f"{anio}{m:02d}" for m in range(1, 13)])
-        # meses del año en curso, incluido el actual (Hacienda lo publica hasta el día anterior)
-        periodos += [[f"{hoy.year}{m:02d}"] for m in range(1, hoy.month + 1)]
+        periodos = lista_periodos(desde_anio)
+        if solo:
+            periodos = [o for o in periodos if o[0] in solo]
         mes_actual = f"{hoy.year}{hoy.month:02d}"
         ctl = almacen.control.setdefault(clave, {})
         hechos = set(ctl.get("periodos_cargados", []))
@@ -502,7 +539,7 @@ def carga_historico(desde_anio, fuentes, almacen):
                     hechos.add(p)
                 ctl["periodos_cargados"] = sorted(hechos)
                 almacen.guarda()
-        if ctl.get("historico_desde") is None or desde_anio < ctl["historico_desde"]:
+        if not solo and (ctl.get("historico_desde") is None or desde_anio < ctl["historico_desde"]):
             ctl["historico_desde"] = desde_anio
 
 
@@ -793,15 +830,31 @@ def main():
     ap.add_argument("--fuentes", default="licitaciones,menores")
     ap.add_argument("--excel", default=str(EXCEL_POR_DEFECTO))
     ap.add_argument("--datos", default=str(FICHERO_DATOS), help=argparse.SUPPRESS)
+    # carga en paralelo (la usa el workflow historico.yml)
+    ap.add_argument("--plan", type=int, metavar="AÑO", help="imprime en JSON las tareas pendientes desde ese año")
+    ap.add_argument("--periodo", metavar="AAAA|AAAAMM", help="carga solo ese año o mes (con --historico implícito)")
+    ap.add_argument("--fusionar", metavar="CARPETA", help="une los JSON parciales de esa carpeta")
+    ap.add_argument("--sin-excel", action="store_true")
     a = ap.parse_args()
     global BORRAR_DESCARGAS
     BORRAR_DESCARGAS = BORRAR_DESCARGAS or a.borrar_descargas
 
     fuentes = [f.strip() for f in a.fuentes.split(",") if f.strip() in FUENTES]
     almacen = Almacen(Path(a.datos))
+
+    if a.plan:
+        print(json.dumps(plan_paralelo(a.plan, fuentes, almacen)))
+        return
+
     filtro = f"IDs: {', '.join(sorted(IDS_ORGANOS))}" if IDS_ORGANOS else f"nombre del órgano o superior contiene 'Pinto' (expresión {FILTRO_NOMBRE})"
     print(f"Filtro: {filtro}")
 
+    if a.periodo:
+        carga_historico(int(a.periodo[:4]), fuentes, almacen, solo={a.periodo})
+        almacen.guarda()
+    if a.fusionar:
+        fusiona(a.fusionar, almacen)
+        almacen.guarda()
     if a.historico:
         carga_historico(a.historico, fuentes, almacen)
         almacen.guarda()
@@ -812,6 +865,9 @@ def main():
         actualiza_feed(fuentes, almacen, a.desde)
         almacen.guarda()
 
+    if a.sin_excel:
+        print(f"\nHecho: {len(almacen.registros)} expedientes en {a.datos}")
+        return
     ruta, n = escribe_excel(almacen, a.excel, filtro)
     print(f"\nHecho: {n} expedientes en {ruta}")
     print(f"  nuevos: {almacen.nuevos} · actualizados: {almacen.actualizados} · marcados como borrados: {almacen.borrados}")

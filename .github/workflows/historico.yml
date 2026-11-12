@@ -1,0 +1,112 @@
+name: Carga histórica en paralelo
+
+# Descarga cada año (y cada mes del año en curso) en un servidor distinto a la vez,
+# porque Hacienda limita mucho la velocidad de cada conexión desde GitHub.
+# Los años ya cargados se saltan, así que se puede relanzar las veces que haga falta.
+
+on:
+  workflow_dispatch:
+    inputs:
+      desde:
+        description: "Año desde el que cargar (p. ej. 2020)"
+        required: true
+        default: "2020"
+
+permissions:
+  contents: write
+
+jobs:
+  planificar:
+    runs-on: ubuntu-latest
+    outputs:
+      tareas: ${{ steps.plan.outputs.tareas }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - id: plan
+        env:
+          DESDE: ${{ github.event.inputs.desde }}
+        run: |
+          TAREAS=$(python pinto_contratos.py --plan "$DESDE")
+          echo "Tareas pendientes: $TAREAS"
+          echo "tareas=$TAREAS" >> "$GITHUB_OUTPUT"
+
+  descargar:
+    needs: planificar
+    if: needs.planificar.outputs.tareas != '[]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix:
+        tarea: ${{ fromJSON(needs.planificar.outputs.tareas) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install openpyxl
+      - name: Descargar ${{ matrix.tarea.fuente }} ${{ matrix.tarea.periodo }}
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          python pinto_contratos.py --periodo "${{ matrix.tarea.periodo }}" \
+            --fuentes "${{ matrix.tarea.fuente }}" --sin-feed --sin-excel --borrar-descargas \
+            --datos "parcial_${{ matrix.tarea.fuente }}_${{ matrix.tarea.periodo }}.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          if-no-files-found: ignore
+          name: parcial_${{ matrix.tarea.fuente }}_${{ matrix.tarea.periodo }}
+          path: parcial_*.json
+          retention-days: 7
+
+  unir:
+    needs: [planificar, descargar]
+    if: always() && needs.planificar.result == 'success'
+    runs-on: ubuntu-latest
+    # no coincide nunca con la actualización diaria (ambas escriben los datos)
+    concurrency:
+      group: actualizar-contratos
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install openpyxl
+      - uses: actions/download-artifact@v4
+        with:
+          path: parciales
+          pattern: parcial_*
+      - name: Unir resultados, leer las novedades y generar el Excel
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          mkdir -p parciales
+          python pinto_contratos.py --fusionar parciales
+
+      - name: Guardar los datos en el repositorio
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add datos_contratos_pinto.json
+          if git diff --cached --quiet; then
+            echo "Sin cambios en los datos."
+          else
+            git commit -m "Carga histórica $(date -u +%Y-%m-%d)"
+            git pull --rebase origin main
+            git push
+          fi
+
+      - name: Publicar el Excel (siempre en el mismo enlace)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view datos >/dev/null 2>&1 || \
+            gh release create datos --title "Contratos del Ayuntamiento de Pinto" \
+              --notes "Excel actualizado automáticamente cada día con los datos abiertos de la Plataforma de Contratación del Sector Público."
+          gh release upload datos contratos_pinto.xlsx --clobber
