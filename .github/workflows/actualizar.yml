@@ -45,7 +45,7 @@ jobs:
           fi
 
       - name: Guardar los datos en el repositorio
-        if: always() && hashFiles('datos_contratos_pinto.json') != ''
+        if: ${{ !cancelled() && hashFiles('datos_contratos_pinto.json') != '' }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
@@ -59,7 +59,7 @@ jobs:
           fi
 
       - name: Publicar el Excel (siempre en el mismo enlace)
-        if: always() && hashFiles('contratos_pinto.xlsx') != ''
+        if: ${{ !cancelled() && hashFiles('contratos_pinto.xlsx') != '' }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -69,7 +69,7 @@ jobs:
           gh release upload datos contratos_pinto.xlsx --clobber
 
       - name: Guardar el Excel también como resultado de la ejecución
-        if: always() && hashFiles('contratos_pinto.xlsx') != ''
+        if: ${{ !cancelled() && hashFiles('contratos_pinto.xlsx') != '' }}
         uses: actions/upload-artifact@v4
         with:
           name: contratos_pinto
