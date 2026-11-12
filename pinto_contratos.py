@@ -58,7 +58,8 @@ FILTRO_NOMBRE = r"\bpinto\b"
 IDS_ORGANOS = set()
 
 # Órganos a excluir aunque contengan "Pinto" (por nombre, sin tildes, en minúscula)
-EXCLUIR_NOMBRES = set()
+# (basta con que el nombre del órgano CONTENGA el texto; sin tildes, en minúscula)
+EXCLUIR_NOMBRES = {"mercedes pinto"}   # CIS Mercedes Pinto (Tenerife), Ministerio del Interior
 
 BASE = "https://contrataciondelsectorpublico.gob.es/sindicacion"
 FUENTES = {
@@ -246,7 +247,7 @@ def candidata(entry):
 
 def es_de_pinto(reg):
     nombres = [reg["Órgano de contratación"]] + reg["Jerarquía del órgano"].split(" > ")
-    if normaliza(reg["Órgano de contratación"]) in EXCLUIR_NOMBRES:
+    if any(x in normaliza(reg["Órgano de contratación"]) for x in EXCLUIR_NOMBRES):
         return False
     if IDS_ORGANOS:
         return bool(IDS_ORGANOS & {reg["ID órgano (Plataforma)"], reg["DIR3 órgano"], reg["NIF órgano"]})
@@ -773,10 +774,12 @@ def escribe_excel(almacen, ruta_excel, filtro_texto):
         celda.font, celda.fill = cab_font, cab_fill
         ws_o.column_dimensions[get_column_letter(j)].width = w
     vistos = {}
-    for r in registros:
-        clave = (r["Órgano de contratación"], r["ID órgano (Plataforma)"])
-        vistos.setdefault(clave, r)
-    for i, ((nombre, idp), r) in enumerate(sorted(vistos.items()), 2):
+    for r in registros:   # un órgano por nombre, con los identificadores que aparezcan
+        v = vistos.setdefault(r["Órgano de contratación"], dict(r))
+        for k in ("ID órgano (Plataforma)", "DIR3 órgano", "NIF órgano", "Jerarquía del órgano"):
+            v[k] = v.get(k) or r.get(k)
+    for i, (nombre, r) in enumerate(sorted(vistos.items()), 2):
+        idp = r["ID órgano (Plataforma)"]
         for j, v in enumerate([nombre, idp, r["DIR3 órgano"], r["NIF órgano"], r["Jerarquía del órgano"]], 1):
             ws_o.cell(row=i, column=j, value=v or None).font = base_font
         ws_o.cell(row=i, column=6, value=f"=COUNTIFS({rng('Órgano de contratación')},A{i})").font = base_font
@@ -845,6 +848,14 @@ def main():
 
     fuentes = [f.strip() for f in a.fuentes.split(",") if f.strip() in FUENTES]
     almacen = Almacen(Path(a.datos))
+
+    # si se ha cambiado el filtro, se quitan los expedientes que ya no cumplen
+    fuera = [k for k, r in almacen.registros.items() if not es_de_pinto(r)]
+    for k in fuera:
+        del almacen.registros[k]
+    if fuera:
+        print(f"Quitados {len(fuera)} expedientes que ya no cumplen el filtro")
+        almacen.guarda()
 
     if a.plan:
         print(json.dumps(plan_paralelo(a.plan, fuentes, almacen)))
