@@ -346,20 +346,109 @@ def procesa_zip(ruta, origen, almacen):
 # Descargas
 # ---------------------------------------------------------------------------
 
+CABECERAS = {"User-Agent": "Ayto-Pinto-GobiernoAbierto/1.0"}
+PARTES_DESCARGA = 8             # conexiones simultáneas para los ZIP grandes
+MB = 1 << 20
+
+
+def _abre(url, rango=None):
+    h = dict(CABECERAS)
+    if rango:
+        h["Range"] = "bytes=%d-%d" % rango
+    return urllib.request.urlopen(urllib.request.Request(url, headers=h), timeout=120)
+
+
+def _tamano_y_rangos(url):
+    """Devuelve (tamaño, admite_rangos) o (None, False). 404 -> ('404', False)."""
+    try:
+        with _abre(url, (0, 0)) as r:
+            cr = r.headers.get("Content-Range", "")
+            if r.status == 206 and "/" in cr and cr.rsplit("/", 1)[1].isdigit():
+                return int(cr.rsplit("/", 1)[1]), True
+            return int(r.headers.get("Content-Length") or 0) or None, False
+    except urllib.error.HTTPError as e:
+        if e.code == 404:
+            return "404", False
+        return None, False
+    except Exception:
+        return None, False
+
+
+class _Progreso:
+    def __init__(self, total, nombre):
+        import threading
+        self.total, self.nombre, self.hecho = total, nombre, 0
+        self.t0 = self.ultimo = time.time()
+        self.lock = threading.Lock()
+
+    def suma(self, n):
+        with self.lock:
+            self.hecho += n
+            ahora = time.time()
+            if ahora - self.ultimo >= 60:
+                self.ultimo = ahora
+                vel = self.hecho / MB / max(ahora - self.t0, 1)
+                tot = f" de {self.total / MB:.0f}" if self.total else ""
+                print(f"      {self.nombre}: {self.hecho / MB:.0f}{tot} MB · {vel:.1f} MB/s", flush=True)
+
+
+def _descarga_parte(url, fichero, inicio, fin, progreso, intentos=6):
+    pos = inicio
+    for i in range(intentos):
+        try:
+            with _abre(url, (pos, fin)) as r, open(fichero, "r+b") as f:
+                f.seek(pos)
+                while pos <= fin:
+                    bloque = r.read(MB)
+                    if not bloque:
+                        break
+                    f.write(bloque)
+                    pos += len(bloque)
+                    progreso.suma(len(bloque))
+            if pos > fin:
+                return
+        except Exception:
+            pass
+        time.sleep(5 * (i + 1))   # se reanuda desde donde se quedó
+    raise RuntimeError(f"parte {inicio}-{fin} incompleta")
+
+
 def descarga(url, destino=None, intentos=3):
-    req = urllib.request.Request(url, headers={"User-Agent": "Ayto-Pinto-GobiernoAbierto/1.0"})
+    # Ficheros grandes: varias conexiones a la vez (si el servidor lo admite)
+    if destino is not None:
+        tam, rangos = _tamano_y_rangos(url)
+        if tam == "404":
+            return None
+        if rangos and tam and tam > 20 * MB:
+            from concurrent.futures import ThreadPoolExecutor
+            print(f"      {tam / MB:.0f} MB, en {PARTES_DESCARGA} conexiones", flush=True)
+            tmp = destino.with_suffix(".part")
+            with open(tmp, "wb") as f:
+                f.truncate(tam)
+            trozo = -(-tam // PARTES_DESCARGA)
+            prog = _Progreso(tam, destino.name)
+            with ThreadPoolExecutor(PARTES_DESCARGA) as ex:
+                tareas = [ex.submit(_descarga_parte, url, tmp, a, min(a + trozo, tam) - 1, prog)
+                          for a in range(0, tam, trozo)]
+                for t in tareas:
+                    t.result()
+            os.replace(tmp, destino)
+            return destino
+    req = urllib.request.Request(url, headers=CABECERAS)
     for i in range(intentos):
         try:
             with urllib.request.urlopen(req, timeout=120) as r:
                 if destino is None:
                     return r.read()
                 tmp = destino.with_suffix(".part")
+                prog = _Progreso(int(r.headers.get("Content-Length") or 0), destino.name)
                 with open(tmp, "wb") as f:
                     while True:
-                        bloque = r.read(1 << 20)
+                        bloque = r.read(MB)
                         if not bloque:
                             break
                         f.write(bloque)
+                        prog.suma(len(bloque))
                 os.replace(tmp, destino)
                 return destino
         except urllib.error.HTTPError as e:
