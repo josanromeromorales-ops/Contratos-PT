@@ -476,11 +476,14 @@ def plan_paralelo(desde_anio, fuentes, almacen):
     for clave in fuentes:
         hechos = set(almacen.control.get(clave, {}).get("periodos_cargados", []))
         for opciones in lista_periodos(desde_anio):
-            p = opciones[0]
-            # un año cuenta como hecho si se cargó entero o mes a mes
-            if p in hechos or (len(opciones) > 1 and set(opciones[1:]) <= hechos):
+            anio = opciones[0][:4]
+            if anio in hechos:          # año ya cargado entero con el ZIP anual
                 continue
-            tareas.append({"fuente": clave, "periodo": p})
+            # una tarea por mes: un año completo de licitaciones (~3 GB) no cabe
+            # en las 6 h de un servidor de GitHub a la velocidad que da Hacienda
+            for mes in (opciones[1:] if len(opciones) > 1 else opciones):
+                if mes not in hechos:
+                    tareas.append({"fuente": clave, "periodo": mes})
     return tareas
 
 
@@ -508,7 +511,8 @@ def carga_historico(desde_anio, fuentes, almacen, solo=None):
         print(f"\n== Histórico de {clave} desde {desde_anio} ==")
         periodos = lista_periodos(desde_anio)
         if solo:
-            periodos = [o for o in periodos if o[0] in solo]
+            # un año o un mes concreto (los meses de años pasados también se publican sueltos)
+            periodos = [o for o in periodos if o[0] in solo] or [[p] for p in sorted(solo)]
         mes_actual = f"{hoy.year}{hoy.month:02d}"
         ctl = almacen.control.setdefault(clave, {})
         hechos = set(ctl.get("periodos_cargados", []))
