@@ -79,8 +79,8 @@ CARPETA_DESCARGAS = CARPETA / "descargas"
 FICHERO_DATOS = CARPETA / "datos_contratos_pinto.json"
 EXCEL_POR_DEFECTO = CARPETA / "contratos_pinto.xlsx"
 MAX_PAGINAS_FEED = 400          # tope de seguridad al seguir los enlaces "next"
-MARGEN_DIAS = 3                 # se relee un pequeño solape para no perder nada
-DIAS_PRIMERA_VEZ = 3            # primera actualización sin datos previos: días hacia atrás
+MARGEN_DIAS = 1                 # se relee un pequeño solape para no perder nada
+DIAS_PRIMERA_VEZ = 1            # primera actualización sin datos previos: días hacia atrás
 MAX_MINUTOS_FEED = 60           # tope de tiempo leyendo el feed de cada fuente
 BORRAR_DESCARGAS = False       # True: borra cada ZIP tras leerlo (ahorra disco, p. ej. en GitHub)
 

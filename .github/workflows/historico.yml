@@ -87,7 +87,7 @@ jobs:
           PYTHONUNBUFFERED: "1"
         run: |
           mkdir -p parciales
-          python pinto_contratos.py --fusionar parciales
+          python pinto_contratos.py --fusionar parciales --sin-feed
 
       - name: Guardar los datos en el repositorio
         run: |
