@@ -47,6 +47,8 @@ def main(desde, hasta, salida):
         for anio in range(desde, hasta + 1):
             p = dict(PARAMS, ejercicio=anio)
             primera = get(BASE + "?" + urllib.parse.urlencode(p))
+            import os; os.makedirs("debug", exist_ok=True)
+            open(f"debug/pagina1_{anio}.html", "w", encoding="utf-8").write(primera)
             m = re.search(r"Se han encontrado\s+([\d.]+)\s+elementos", primera)
             total = int(m.group(1).replace(".", "")) if m else 0
             ids = re.findall(r"d-(\d+)-p=", primera)

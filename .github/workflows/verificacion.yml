@@ -11,6 +11,9 @@ on:
       hasta:
         default: "2025"
 
+permissions:
+  contents: write
+
 jobs:
   rendicion:
     runs-on: ubuntu-latest
@@ -23,9 +26,15 @@ jobs:
       - run: python verificacion/rendicion_cuentas.py "${{ github.event.inputs.desde }}" "${{ github.event.inputs.hasta }}" rendicion_cuentas.csv
         env:
           PYTHONUNBUFFERED: "1"
-      - uses: actions/upload-artifact@v4
+      - name: Guardar el resultado en la rama "verificacion" (no toca main)
         if: ${{ !cancelled() }}
-        with:
-          name: rendicion_cuentas
-          path: rendicion_cuentas.csv
-          if-no-files-found: ignore
+        run: |
+          mkdir -p /tmp/out && cp rendicion_cuentas.csv /tmp/out/ && cp -r debug /tmp/out/ 2>/dev/null || true
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan verificacion
+          git rm -rfq .
+          cp -r /tmp/out/* .
+          git add -A
+          git commit -qm "Listado de Rendición de Cuentas $(date -u +%Y-%m-%d)"
+          git push -f origin verificacion
