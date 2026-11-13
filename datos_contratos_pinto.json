@@ -12,7 +12,9 @@
     "202608",
     "202609",
     "202610"
-   ]
+   ],
+   "ultima_actualizacion": "2026-11-13T06:21:13",
+   "ultima_entrada": "2026-11-12T19:57:52.639+01:00"
   },
   "menores": {
    "periodos_cargados": [
@@ -26,7 +28,9 @@
     "202608",
     "202609",
     "202610"
-   ]
+   ],
+   "ultima_actualizacion": "2026-11-13T06:23:25",
+   "ultima_entrada": "2026-11-13T02:07:45.749+01:00"
   }
  },
  "registros": {
@@ -8207,43 +8211,6 @@
    "Órgano de contratación": "Concejal de Contratación del Ayuntamiento de Pinto",
    "Última actualización": "2026-10-19T09:24:19.238+02:00"
   },
-  "https://contrataciondelestado.es/sindicacion/datosAbiertosMenores/20721992": {
-   "Borrado en Plataforma": "",
-   "CPV": "44163000, 45330000, 44112400",
-   "DIR3 órgano": "",
-   "Duración": "30 días",
-   "Enlace": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=aiuOIOCtsOnE6P%2FuLemXRw%3D%3D",
-   "Estado": "Resuelta",
-   "Expediente": "2026Grb00005",
-   "Fin plazo ofertas": "2026-10-14",
-   "ID órgano (Plataforma)": "10000160093822",
-   "Jerarquía del órgano": "Sector Público > ADMINISTRACIÓN GENERAL DEL ESTADO > Ministerio del Interior > Centros Penitenciarios > CIS Mercedes Pinto (Tenerife)",
-   "NIF órgano": "S3800017J",
-   "Objeto": "Suministro con instalación integrada de materiales hidráulicos y falsos techos para el patio general del CIS Mercedes Pinto",
-   "Origen": "Contrato menor",
-   "Presupuesto base con IVA": 16048.93,
-   "Presupuesto base sin IVA": 14999.0,
-   "Primera publicación": "2026-09-29",
-   "Procedimiento": "Contrato menor",
-   "Tipo de contrato": "Suministros",
-   "Valor estimado": 14999.0,
-   "adjudicaciones": [
-    {
-     "Adjudicatario": "IWATER",
-     "Fecha adjudicación": "2026-10-17",
-     "Fecha formalización": "",
-     "Importe adjudicación con IVA": 9867.43,
-     "Importe adjudicación sin IVA": 9221.9,
-     "Lote": "",
-     "NIF adjudicatario": "B76655364",
-     "Nº ofertas": 1.0,
-     "Resultado": "Adjudicado"
-    }
-   ],
-   "id": "https://contrataciondelestado.es/sindicacion/datosAbiertosMenores/20721992",
-   "Órgano de contratación": "Centro de Inserción Social Mercedes Pinto",
-   "Última actualización": "2026-10-19T09:22:57.941+02:00"
-  },
   "https://contrataciondelestado.es/sindicacion/datosAbiertosMenores/20722046": {
    "Borrado en Plataforma": "",
    "CPV": "",
@@ -9834,43 +9801,6 @@
    "id": "https://contrataciondelestado.es/sindicacion/datosAbiertosMenores/20842757",
    "Órgano de contratación": "Concejal de Contratación del Ayuntamiento de Pinto",
    "Última actualización": "2026-11-04T08:21:12.922+01:00"
-  },
-  "https://contrataciondelestado.es/sindicacion/datosAbiertosMenores/20851349": {
-   "Borrado en Plataforma": "",
-   "CPV": "50720000, 42511110",
-   "DIR3 órgano": "",
-   "Duración": "30 días",
-   "Enlace": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=iuTmakb5kSQS7pcxhTeWOg%3D%3D",
-   "Estado": "Resuelta",
-   "Expediente": "2026Grb00008",
-   "Fin plazo ofertas": "2026-10-30",
-   "ID órgano (Plataforma)": "10000160093822",
-   "Jerarquía del órgano": "Sector Público > ADMINISTRACIÓN GENERAL DEL ESTADO > Ministerio del Interior > Centros Penitenciarios > CIS Mercedes Pinto (Tenerife)",
-   "NIF órgano": "S3800017J",
-   "Objeto": "Reparación del circuito frigorífico nº 2 de la enfriadora Daikin en el CIS Mercedes Pinto.",
-   "Origen": "Contrato menor",
-   "Presupuesto base con IVA": 12437.56,
-   "Presupuesto base sin IVA": 11623.89,
-   "Primera publicación": "2026-10-15",
-   "Procedimiento": "Contrato menor",
-   "Tipo de contrato": "Servicios",
-   "Valor estimado": 11623.89,
-   "adjudicaciones": [
-    {
-     "Adjudicatario": "COMSA",
-     "Fecha adjudicación": "2026-11-03",
-     "Fecha formalización": "",
-     "Importe adjudicación con IVA": 12437.56,
-     "Importe adjudicación sin IVA": 11623.89,
-     "Lote": "",
-     "NIF adjudicatario": "A60470127",
-     "Nº ofertas": 1.0,
-     "Resultado": "Adjudicado"
-    }
-   ],
-   "id": "https://contrataciondelestado.es/sindicacion/datosAbiertosMenores/20851349",
-   "Órgano de contratación": "Centro de Inserción Social Mercedes Pinto",
-   "Última actualización": "2026-11-05T08:36:43.014+01:00"
   },
   "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13003491": {
    "Borrado en Plataforma": "",
@@ -14510,54 +14440,6 @@
    "Órgano de contratación": "Concejal de Contratación del Ayuntamiento de Pinto",
    "Última actualización": "2026-05-29T15:17:25.188+02:00"
   },
-  "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/19542561": {
-   "Borrado en Plataforma": "",
-   "CPV": "90912000",
-   "DIR3 órgano": "",
-   "Duración": "",
-   "Enlace": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=Eb6DTh8u3xI7u6%2B%2FR7DUoA%3D%3D",
-   "Estado": "Adjudicada",
-   "Expediente": "2026Grb00003",
-   "Fin plazo ofertas": "2026-05-18",
-   "ID órgano (Plataforma)": "10000160093822",
-   "Jerarquía del órgano": "Sector Público > ADMINISTRACIÓN GENERAL DEL ESTADO > Ministerio del Interior > Centros Penitenciarios > CIS Mercedes Pinto (Tenerife)",
-   "NIF órgano": "S3800017J",
-   "Objeto": "Contratación de limpieza de oficinas y otras dependencias del CIS Mercedes Pinto de Tenerife",
-   "Origen": "Licitación",
-   "Presupuesto base con IVA": 54555.02,
-   "Presupuesto base sin IVA": 50986.0,
-   "Primera publicación": "2026-04-22",
-   "Procedimiento": "Abierto simplificado",
-   "Tipo de contrato": "Servicios",
-   "Valor estimado": 50986.0,
-   "adjudicaciones": [
-    {
-     "Adjudicatario": "MULTIMUR SERVICIOS INTEGRALES, S.L.",
-     "Fecha adjudicación": "2026-05-20",
-     "Fecha formalización": "",
-     "Importe adjudicación con IVA": 26318.15,
-     "Importe adjudicación sin IVA": 24596.4,
-     "Lote": "",
-     "NIF adjudicatario": "B72785686",
-     "Nº ofertas": 3.0,
-     "Resultado": "Adjudicado"
-    },
-    {
-     "Adjudicatario": "LIMCAMAR, S.L.",
-     "Fecha adjudicación": "2026-05-20",
-     "Fecha formalización": "",
-     "Importe adjudicación con IVA": 24127.19,
-     "Importe adjudicación sin IVA": 22548.78,
-     "Lote": "",
-     "NIF adjudicatario": "B30132724",
-     "Nº ofertas": 3.0,
-     "Resultado": "Adjudicado"
-    }
-   ],
-   "id": "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/19542561",
-   "Órgano de contratación": "Centro de Inserción Social Mercedes Pinto",
-   "Última actualización": "2026-05-20T14:36:37.307+02:00"
-  },
   "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/19551093": {
    "Borrado en Plataforma": "",
    "CPV": "55500000",
@@ -14701,43 +14583,6 @@
    "id": "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/19571009",
    "Órgano de contratación": "Concejal de Contratación del Ayuntamiento de Pinto",
    "Última actualización": "2026-05-14T10:43:16.079+02:00"
-  },
-  "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/19579303": {
-   "Borrado en Plataforma": "",
-   "CPV": "31211000",
-   "DIR3 órgano": "",
-   "Duración": "4 meses",
-   "Enlace": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=wNQxoSGt6X836J9Lctlsuw%3D%3D",
-   "Estado": "Adjudicada",
-   "Expediente": "2026Grb00004",
-   "Fin plazo ofertas": "2026-05-18",
-   "ID órgano (Plataforma)": "10000160093822",
-   "Jerarquía del órgano": "Sector Público > ADMINISTRACIÓN GENERAL DEL ESTADO > Ministerio del Interior > Centros Penitenciarios > CIS Mercedes Pinto (Tenerife)",
-   "NIF órgano": "S3800017J",
-   "Objeto": "Sustitución y traslado cuadro eléctrico control bombas agua. El contratista deberá suministrar, instalar, poner en marcha e informar de cualquier incompatibilidad del equipamiento con las siguientes especificaciones mínimas,",
-   "Origen": "Licitación",
-   "Presupuesto base con IVA": 14271.66,
-   "Presupuesto base sin IVA": 13338.0,
-   "Primera publicación": "2026-04-28",
-   "Procedimiento": "Abierto",
-   "Tipo de contrato": "Suministros",
-   "Valor estimado": 13338.0,
-   "adjudicaciones": [
-    {
-     "Adjudicatario": "CONSTRUCCIONES ELECTRICAS CANARIAS SA (CONELSA)",
-     "Fecha adjudicación": "2026-05-19",
-     "Fecha formalización": "",
-     "Importe adjudicación con IVA": 9093.26,
-     "Importe adjudicación sin IVA": 8498.37,
-     "Lote": "",
-     "NIF adjudicatario": "A35029826",
-     "Nº ofertas": 3.0,
-     "Resultado": "Adjudicado"
-    }
-   ],
-   "id": "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/19579303",
-   "Órgano de contratación": "Centro de Inserción Social Mercedes Pinto",
-   "Última actualización": "2026-05-19T14:07:17.184+02:00"
   },
   "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/19579876": {
    "Borrado en Plataforma": "",
@@ -15121,80 +14966,6 @@
    "id": "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/19672400",
    "Órgano de contratación": "Concejal de Contratación del Ayuntamiento de Pinto",
    "Última actualización": "2026-09-10T11:59:34.171+02:00"
-  },
-  "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/19672449": {
-   "Borrado en Plataforma": "",
-   "CPV": "39150000",
-   "DIR3 órgano": "",
-   "Duración": "2 meses",
-   "Enlace": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=rbM7NdcxAHuHCIsjvJ3rhQ%3D%3D",
-   "Estado": "Adjudicada",
-   "Expediente": "820020260002",
-   "Fin plazo ofertas": "",
-   "ID órgano (Plataforma)": "10000160093822",
-   "Jerarquía del órgano": "Sector Público > ADMINISTRACIÓN GENERAL DEL ESTADO > Ministerio del Interior > Centros Penitenciarios > CIS Mercedes Pinto (Tenerife)",
-   "NIF órgano": "S3800017J",
-   "Objeto": "Sala lactancia Cis Tenerife",
-   "Origen": "Licitación",
-   "Presupuesto base con IVA": 1774.17,
-   "Presupuesto base sin IVA": 1670.65,
-   "Primera publicación": "2026-05-13",
-   "Procedimiento": "Abierto",
-   "Tipo de contrato": "Suministros",
-   "Valor estimado": 1670.65,
-   "adjudicaciones": [
-    {
-     "Adjudicatario": "PC TENERIFE SERVICE S.L.",
-     "Fecha adjudicación": "2026-05-11",
-     "Fecha formalización": "",
-     "Importe adjudicación con IVA": 1774.17,
-     "Importe adjudicación sin IVA": 1670.65,
-     "Lote": "",
-     "NIF adjudicatario": "B38511556",
-     "Nº ofertas": 1.0,
-     "Resultado": "Adjudicado"
-    }
-   ],
-   "id": "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/19672449",
-   "Órgano de contratación": "Centro de Inserción Social Mercedes Pinto",
-   "Última actualización": "2026-05-13T14:38:34.058+02:00"
-  },
-  "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/19680617": {
-   "Borrado en Plataforma": "",
-   "CPV": "39112000",
-   "DIR3 órgano": "",
-   "Duración": "2 meses",
-   "Enlace": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=DcZ3ljC2vPaS81gZFETWmA%3D%3D",
-   "Estado": "Adjudicada",
-   "Expediente": "820020260001",
-   "Fin plazo ofertas": "",
-   "ID órgano (Plataforma)": "10000160093822",
-   "Jerarquía del órgano": "Sector Público > ADMINISTRACIÓN GENERAL DEL ESTADO > Ministerio del Interior > Centros Penitenciarios > CIS Mercedes Pinto (Tenerife)",
-   "NIF órgano": "S3800017J",
-   "Objeto": "Mobiliario diverso  CIS Tenerife ( 10 sillas)",
-   "Origen": "Licitación",
-   "Presupuesto base con IVA": 3852.0,
-   "Presupuesto base sin IVA": 3600.0,
-   "Primera publicación": "2026-05-14",
-   "Procedimiento": "Abierto",
-   "Tipo de contrato": "Suministros",
-   "Valor estimado": 3600.0,
-   "adjudicaciones": [
-    {
-     "Adjudicatario": "PC TENERIFE SERVICE S.L.",
-     "Fecha adjudicación": "2026-05-14",
-     "Fecha formalización": "",
-     "Importe adjudicación con IVA": 3580.28,
-     "Importe adjudicación sin IVA": 3476.0,
-     "Lote": "",
-     "NIF adjudicatario": "B38511556",
-     "Nº ofertas": 2.0,
-     "Resultado": "Adjudicado"
-    }
-   ],
-   "id": "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/19680617",
-   "Órgano de contratación": "Centro de Inserción Social Mercedes Pinto",
-   "Última actualización": "2026-05-14T14:01:27.605+02:00"
   },
   "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/19680829": {
    "Borrado en Plataforma": "",
@@ -17341,31 +17112,6 @@
    "Órgano de contratación": "Concejal de Contratación del Ayuntamiento de Pinto",
    "Última actualización": "2026-11-04T15:47:19.050+01:00"
   },
-  "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/20836969": {
-   "Borrado en Plataforma": "",
-   "CPV": "42122130",
-   "DIR3 órgano": "",
-   "Duración": "15 días",
-   "Enlace": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=m08mA3HC4S5q1DdmE7eaXg%3D%3D",
-   "Estado": "En plazo",
-   "Expediente": "2026Grb00009",
-   "Fin plazo ofertas": "2026-11-12",
-   "ID órgano (Plataforma)": "10000160093822",
-   "Jerarquía del órgano": "Sector Público > ADMINISTRACIÓN GENERAL DEL ESTADO > Ministerio del Interior > Centros Penitenciarios > CIS Mercedes Pinto (Tenerife)",
-   "NIF órgano": "S3800017J",
-   "Objeto": "Suministro urgente de maquinaria hidráulica, bombas de agua marca Wilo y accesorios de acoplamiento para el CIS Mercedes Pinto",
-   "Origen": "Licitación",
-   "Presupuesto base con IVA": 9254.96,
-   "Presupuesto base sin IVA": 8649.5,
-   "Primera publicación": "2026-11-04",
-   "Procedimiento": "Abierto",
-   "Tipo de contrato": "Suministros",
-   "Valor estimado": 8649.5,
-   "adjudicaciones": [],
-   "id": "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/20836969",
-   "Órgano de contratación": "Centro de Inserción Social Mercedes Pinto",
-   "Última actualización": "2026-11-04T08:56:33.461+01:00"
-  },
   "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/20854625": {
    "Borrado en Plataforma": "",
    "CPV": "34144000, 92312000, 79952100, 50000000",
@@ -17476,7 +17222,32 @@
    ],
    "id": "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/20877001",
    "Órgano de contratación": "Junta de Gobierno del Ayuntamiento de Pinto",
-   "Última actualización": "2026-11-10T14:24:28.394+01:00"
+   "Última actualización": "2026-11-12T10:12:27.848+01:00"
+  },
+  "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/20896909": {
+   "Borrado en Plataforma": "",
+   "CPV": "45233141",
+   "DIR3 órgano": "L01281132",
+   "Duración": "2 meses",
+   "Enlace": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=hMLfTVUzcbImMOlAXxDEjw%3D%3D",
+   "Estado": "En plazo",
+   "Expediente": "2026/37173",
+   "Fin plazo ofertas": "2026-11-27",
+   "ID órgano (Plataforma)": "31271560170916",
+   "Jerarquía del órgano": "Sector Público > ENTIDADES LOCALES > Comunidad de Madrid > Ayuntamientos > Pinto",
+   "NIF órgano": "P2811300I",
+   "Objeto": "Obras de mantenimiento de diversos caminos agrícolas y acondicionamiento de la superficie de la parcela municipal (referencia catastral 0541701VK4504S0001TR), colindante con el parque municipal en el término municipal de Pinto (Madrid).",
+   "Origen": "Licitación",
+   "Presupuesto base con IVA": 16940.0,
+   "Presupuesto base sin IVA": 14000.0,
+   "Primera publicación": "2026-11-12",
+   "Procedimiento": "Abierto simplificado",
+   "Tipo de contrato": "Obras",
+   "Valor estimado": 14000.0,
+   "adjudicaciones": [],
+   "id": "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/20896909",
+   "Órgano de contratación": "Concejal de Contratación del Ayuntamiento de Pinto",
+   "Última actualización": "2026-11-12T12:57:02.969+01:00"
   },
   "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/7447893": {
    "Borrado en Plataforma": "",
