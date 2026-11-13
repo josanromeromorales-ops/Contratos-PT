@@ -1,0 +1,31 @@
+name: Verificación con Rendición de Cuentas
+
+# Descarga el listado de contratos de Pinto de rendiciondecuentas.es para
+# compararlo con el Excel. Solo se lanza a mano; no modifica los datos.
+
+on:
+  workflow_dispatch:
+    inputs:
+      desde:
+        default: "2020"
+      hasta:
+        default: "2025"
+
+jobs:
+  rendicion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python verificacion/rendicion_cuentas.py "${{ github.event.inputs.desde }}" "${{ github.event.inputs.hasta }}" rendicion_cuentas.csv
+        env:
+          PYTHONUNBUFFERED: "1"
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: rendicion_cuentas
+          path: rendicion_cuentas.csv
+          if-no-files-found: ignore
