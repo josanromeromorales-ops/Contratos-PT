@@ -85,8 +85,8 @@
     "202609",
     "202610"
    ],
-   "ultima_actualizacion": "2026-11-13T06:21:13",
-   "ultima_entrada": "2026-11-12T19:57:52.639+01:00"
+   "ultima_actualizacion": "2026-11-14T06:22:25",
+   "ultima_entrada": "2026-11-13T20:11:58.993+01:00"
   },
   "menores": {
    "periodos_cargados": [
@@ -173,8 +173,8 @@
     "202609",
     "202610"
    ],
-   "ultima_actualizacion": "2026-11-13T06:23:25",
-   "ultima_entrada": "2026-11-13T02:07:45.749+01:00"
+   "ultima_actualizacion": "2026-11-14T06:24:15",
+   "ultima_entrada": "2026-11-14T02:36:22.283+01:00"
   }
  },
  "registros": {
@@ -69238,6 +69238,117 @@
    "Órgano de contratación": "Concejal de Contratación del Ayuntamiento de Pinto",
    "Última actualización": "2026-11-04T08:21:12.922+01:00"
   },
+  "https://contrataciondelestado.es/sindicacion/datosAbiertosMenores/20910787": {
+   "Borrado en Plataforma": "",
+   "CPV": "",
+   "DIR3 órgano": "L01281132",
+   "Duración": "2 días",
+   "Enlace": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=4YD9IDkO%2FLjXOjazN1Dw9Q%3D%3D",
+   "Estado": "Resuelta",
+   "Expediente": "2026/38959",
+   "Fin plazo ofertas": "",
+   "ID órgano (Plataforma)": "31271560170916",
+   "Jerarquía del órgano": "Sector Público > ENTIDADES LOCALES > Comunidad de Madrid > Ayuntamientos > Pinto",
+   "NIF órgano": "P2811300I",
+   "Objeto": "Contrato menor de charangas los días 24 y 31 de diciembre de 2026 en recorridos urbanos de Pinto.",
+   "Origen": "Contrato menor",
+   "Presupuesto base con IVA": 9075.0,
+   "Presupuesto base sin IVA": 7500.0,
+   "Primera publicación": "2026-11-13",
+   "Procedimiento": "Contrato menor",
+   "Tipo de contrato": "Servicios",
+   "Valor estimado": null,
+   "adjudicaciones": [
+    {
+     "Adjudicatario": "PACME ESPECTACULOS, SL",
+     "Fecha adjudicación": "2026-11-03",
+     "Fecha formalización": "",
+     "Importe adjudicación con IVA": 9075.0,
+     "Importe adjudicación sin IVA": 7500.0,
+     "Lote": "",
+     "NIF adjudicatario": "B19031145",
+     "Nº ofertas": 1.0,
+     "Resultado": "Adjudicado"
+    }
+   ],
+   "id": "https://contrataciondelestado.es/sindicacion/datosAbiertosMenores/20910787",
+   "Órgano de contratación": "Concejal de Contratación del Ayuntamiento de Pinto",
+   "Última actualización": "2026-11-13T12:07:56.373+01:00"
+  },
+  "https://contrataciondelestado.es/sindicacion/datosAbiertosMenores/20911028": {
+   "Borrado en Plataforma": "",
+   "CPV": "",
+   "DIR3 órgano": "L01281132",
+   "Duración": "1 días",
+   "Enlace": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=ogcTx699a9uHCIsjvJ3rhQ%3D%3D",
+   "Estado": "Resuelta",
+   "Expediente": "2026/39365",
+   "Fin plazo ofertas": "",
+   "ID órgano (Plataforma)": "31271560170916",
+   "Jerarquía del órgano": "Sector Público > ENTIDADES LOCALES > Comunidad de Madrid > Ayuntamientos > Pinto",
+   "NIF órgano": "P2811300I",
+   "Objeto": "Servicios artísticos y representación espectáculo de calle cortejo real en la Cabalgata de Reyes 2027.",
+   "Origen": "Contrato menor",
+   "Presupuesto base con IVA": 13189.0,
+   "Presupuesto base sin IVA": 10900.0,
+   "Primera publicación": "2026-11-13",
+   "Procedimiento": "Contrato menor",
+   "Tipo de contrato": "Servicios",
+   "Valor estimado": null,
+   "adjudicaciones": [
+    {
+     "Adjudicatario": "María Arcos Morales",
+     "Fecha adjudicación": "2026-11-04",
+     "Fecha formalización": "",
+     "Importe adjudicación con IVA": 13189.0,
+     "Importe adjudicación sin IVA": 10900.0,
+     "Lote": "",
+     "NIF adjudicatario": "***7161***",
+     "Nº ofertas": 1.0,
+     "Resultado": "Adjudicado"
+    }
+   ],
+   "id": "https://contrataciondelestado.es/sindicacion/datosAbiertosMenores/20911028",
+   "Órgano de contratación": "Concejal de Contratación del Ayuntamiento de Pinto",
+   "Última actualización": "2026-11-13T10:51:24.618+01:00"
+  },
+  "https://contrataciondelestado.es/sindicacion/datosAbiertosMenores/20911118": {
+   "Borrado en Plataforma": "",
+   "CPV": "",
+   "DIR3 órgano": "L01281132",
+   "Duración": "2 días",
+   "Enlace": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=S68xNnlDbPOcTfjQf3USOg%3D%3D",
+   "Estado": "Resuelta",
+   "Expediente": "2026/",
+   "Fin plazo ofertas": "",
+   "ID órgano (Plataforma)": "31271560170916",
+   "Jerarquía del órgano": "Sector Público > ENTIDADES LOCALES > Comunidad de Madrid > Ayuntamientos > Pinto",
+   "NIF órgano": "P2811300I",
+   "Objeto": "Charangas los días 24 y 31 de diciembre de 2026 en recorridos urbanos de Pinto.",
+   "Origen": "Contrato menor",
+   "Presupuesto base con IVA": 9075.0,
+   "Presupuesto base sin IVA": 7500.0,
+   "Primera publicación": "2026-11-13",
+   "Procedimiento": "Contrato menor",
+   "Tipo de contrato": "Servicios",
+   "Valor estimado": null,
+   "adjudicaciones": [
+    {
+     "Adjudicatario": "PACME ESPECTACULOS, SL",
+     "Fecha adjudicación": "2026-11-03",
+     "Fecha formalización": "",
+     "Importe adjudicación con IVA": 9075.0,
+     "Importe adjudicación sin IVA": 7500.0,
+     "Lote": "",
+     "NIF adjudicatario": "B19031145",
+     "Nº ofertas": 1.0,
+     "Resultado": "Adjudicado"
+    }
+   ],
+   "id": "https://contrataciondelestado.es/sindicacion/datosAbiertosMenores/20911118",
+   "Órgano de contratación": "Concejal de Contratación del Ayuntamiento de Pinto",
+   "Última actualización": "2026-11-13T10:23:53.947+01:00"
+  },
   "https://contrataciondelestado.es/sindicacion/datosAbiertosMenores/4494583": {
    "Borrado en Plataforma": "",
    "CPV": "",
@@ -104951,7 +105062,7 @@
    "DIR3 órgano": "L01281132",
    "Duración": "1 años",
    "Enlace": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=xrecJcQcxyuOUi78BmzhOQ%3D%3D",
-   "Estado": "Pendiente de adjudicación",
+   "Estado": "Adjudicada",
    "Expediente": "2026/5611",
    "Fin plazo ofertas": "2026-07-16",
    "ID órgano (Plataforma)": "30954020139162",
@@ -104965,10 +105076,22 @@
    "Procedimiento": "Abierto",
    "Tipo de contrato": "Servicios",
    "Valor estimado": 755901.36,
-   "adjudicaciones": [],
+   "adjudicaciones": [
+    {
+     "Adjudicatario": "promoción de la formacion las palmas s.l.",
+     "Fecha adjudicación": "2026-08-12",
+     "Fecha formalización": "",
+     "Importe adjudicación con IVA": 10.0,
+     "Importe adjudicación sin IVA": 10.0,
+     "Lote": "",
+     "NIF adjudicatario": "b35537836",
+     "Nº ofertas": 6.0,
+     "Resultado": "Adjudicado"
+    }
+   ],
    "id": "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/19879256",
    "Órgano de contratación": "Junta de Gobierno del Ayuntamiento de Pinto",
-   "Última actualización": "2026-08-17T12:30:14.551+02:00"
+   "Última actualización": "2026-11-13T12:55:12.537+01:00"
   },
   "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/19886246": {
    "Borrado en Plataforma": "",
@@ -106195,7 +106318,7 @@
    "DIR3 órgano": "L01281132",
    "Duración": "1 años",
    "Enlace": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=iN1%2BMzOw8OukU02jNGj1Fw%3D%3D",
-   "Estado": "Adjudicada",
+   "Estado": "Resuelta",
    "Expediente": "2026/32119",
    "Fin plazo ofertas": "2026-10-19",
    "ID órgano (Plataforma)": "31271560170916",
@@ -106213,18 +106336,18 @@
     {
      "Adjudicatario": "SOFTNEOS ENGINEERING AND COMPUTER SERVICES, S.L.",
      "Fecha adjudicación": "2026-10-22",
-     "Fecha formalización": "",
+     "Fecha formalización": "2026-10-26",
      "Importe adjudicación con IVA": 3177.46,
      "Importe adjudicación sin IVA": 2626.0,
      "Lote": "",
      "NIF adjudicatario": "B67137034",
      "Nº ofertas": 4.0,
-     "Resultado": "Adjudicado"
+     "Resultado": "Formalizado"
     }
    ],
    "id": "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/20622664",
    "Órgano de contratación": "Concejal de Contratación del Ayuntamiento de Pinto",
-   "Última actualización": "2026-10-23T09:21:33.240+02:00"
+   "Última actualización": "2026-11-13T10:53:26.297+01:00"
   },
   "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/20657286": {
    "Borrado en Plataforma": "",
@@ -106473,7 +106596,7 @@
    "adjudicaciones": [],
    "id": "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/20827751",
    "Órgano de contratación": "Concejal de Contratación del Ayuntamiento de Pinto",
-   "Última actualización": "2026-11-03T14:36:46.347+01:00"
+   "Última actualización": "2026-11-13T14:56:32.800+01:00"
   },
   "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/20827875": {
    "Borrado en Plataforma": "",
@@ -106661,6 +106784,56 @@
    "id": "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/20896909",
    "Órgano de contratación": "Concejal de Contratación del Ayuntamiento de Pinto",
    "Última actualización": "2026-11-12T12:57:02.969+01:00"
+  },
+  "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/20905889": {
+   "Borrado en Plataforma": "",
+   "CPV": "55500000",
+   "DIR3 órgano": "L01281132",
+   "Duración": "1 días",
+   "Enlace": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=hzk%2BKQmTT303vLk2DU2Ddg%3D%3D",
+   "Estado": "Pendiente de adjudicación",
+   "Expediente": "2026/39807",
+   "Fin plazo ofertas": "2026-11-23",
+   "ID órgano (Plataforma)": "31271560170916",
+   "Jerarquía del órgano": "Sector Público > ENTIDADES LOCALES > Comunidad de Madrid > Ayuntamientos > Pinto",
+   "NIF órgano": "P2811300I",
+   "Objeto": "Catering con motivo de las elecciones generales del 29 de noviembre de 2026.",
+   "Origen": "Licitación",
+   "Presupuesto base con IVA": 17608.8,
+   "Presupuesto base sin IVA": 16008.0,
+   "Primera publicación": "2026-11-13",
+   "Procedimiento": "Negociado sin publicidad",
+   "Tipo de contrato": "Servicios",
+   "Valor estimado": 16008.0,
+   "adjudicaciones": [],
+   "id": "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/20905889",
+   "Órgano de contratación": "Concejal de Contratación del Ayuntamiento de Pinto",
+   "Última actualización": "2026-11-13T17:52:51.087+01:00"
+  },
+  "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/20905896": {
+   "Borrado en Plataforma": "",
+   "CPV": "55500000",
+   "DIR3 órgano": "L01281132",
+   "Duración": "1 días",
+   "Enlace": "https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=OAUjf9LfsDaFQ%2FlhRK79lA%3D%3D",
+   "Estado": "Pendiente de adjudicación",
+   "Expediente": "2026/39492",
+   "Fin plazo ofertas": "2026-11-23",
+   "ID órgano (Plataforma)": "31271560170916",
+   "Jerarquía del órgano": "Sector Público > ENTIDADES LOCALES > Comunidad de Madrid > Ayuntamientos > Pinto",
+   "NIF órgano": "P2811300I",
+   "Objeto": "Desayuno jornada \"Mujer, ciencia y violencia\" el 27 de noviembre de 2026.",
+   "Origen": "Licitación",
+   "Presupuesto base con IVA": 1732.5,
+   "Presupuesto base sin IVA": 1575.0,
+   "Primera publicación": "2026-11-13",
+   "Procedimiento": "Negociado sin publicidad",
+   "Tipo de contrato": "Servicios",
+   "Valor estimado": 1575.0,
+   "adjudicaciones": [],
+   "id": "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/20905896",
+   "Órgano de contratación": "Concejal de Contratación del Ayuntamiento de Pinto",
+   "Última actualización": "2026-11-13T17:08:31.653+01:00"
   },
   "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/2121000": {
    "Borrado en Plataforma": "",
